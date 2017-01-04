@@ -36,8 +36,8 @@ $(function() {
                 expect(feed.url).toBeDefined();
                 expect(feed.url.length).not.toBe(0);
                 expect(feed.url.substring(0,4)).toEqual("http");
-            })
-        })
+            });
+        });
 
 
         /* TODO: Write a test that loops through each feed
@@ -48,9 +48,9 @@ $(function() {
         it('have a name', function(){
             allFeeds.forEach(function(feed){
                 expect(feed.name).toBeDefined();
-                expect(feed.url.length).not.toBe(0);
-            })
-        })
+                expect(feed.name.length).not.toBe(0);
+            });
+        });
     });
 
 
@@ -61,19 +61,19 @@ $(function() {
          * and set menuShowing to false
          * (If body has class "menu-hidden," the menu will be hidden)
          */
-        var bodyClassName, menuShowing;
+        var body, menuShowing;
         beforeEach(function(){
-            bodyClassName = $('body')[0].className;
+            body = $('body');
             menuShowing = false;
-        })
+        });
         /* TODO: Write a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
         it('elements are hidden', function(){
-            expect(bodyClassName).toEqual('menu-hidden');
-        })
+            expect(body.hasClass('menu-hidden')).toBe(true);
+        });
          /* TODO: Write a test that ensures the menu changes
           * visibility when the menu icon is clicked. This test
           * should have two expectations: does the menu display when
@@ -85,15 +85,15 @@ $(function() {
 
             // Triggers a click event, checks to see if class name has been removed
             menuIcon.trigger('click');
-            bodyClassName = $('body')[0].className;
-            expect(bodyClassName).toEqual('');
+            body = $('body');
+            expect(body.hasClass('menu-hidden')).toBe(false);
 
             // Triggers a click event, checks to see if class name has been returned
             menuIcon.trigger('click');
-            bodyClassName = $('body')[0].className;
-            expect(bodyClassName).toEqual('menu-hidden');
-        })
-    })
+            body = $('body');
+            expect(body.hasClass('menu-hidden')).toBe(true);;
+        });
+    });
     /* TODO: Write a new test suite named "Initial Entries" */
     describe('Initial Entries', function(){
         var entriesLength;
@@ -105,16 +105,15 @@ $(function() {
          */
         beforeEach(function(done){
             loadFeed(0, function(){
-                entriesLength = document.getElementsByClassName('entry').length;
+                entriesLength = $('.feed .entry').length;
                 done();
-            })
+            });
         });
 
-        it('loads properly', function(done){
+        it('loads properly', function(){
             //expect the number of .entry elements to be greater than 1
             expect(entriesLength).toBeGreaterThan(0);
-            done();
-        })
+        });
     });
 
     //})
@@ -129,25 +128,26 @@ $(function() {
             // get current text from feed container, store in variable originFeed
             loadFeed(0, function(){
                 originFeed = $('.feed').children().text();
-                console.log(originFeed);
-            })
+                loadFeed(1, function(){
+                    newFeed = $('.feed').children().text();
+                    console.log(originFeed);
+                    console.log(newFeed);
+                    done();
+                });
+            });
             // Get new text from current feed container, store in variable newFeed
-            loadFeed(1, function(){
-                newFeed = $('.feed').children().text();
-                done();
-            })
+    
 
-        })
-        it('loads properly when clicked', function(done){
+        });
+        it('loads properly when clicked', function(){
             // Check to make sure originFeed and newFeed have content
             if (originFeed === '' || newFeed === ''){
-                window.alert('Could not access RSS Feeds')
+                window.alert('Could not access RSS Feeds');
             }
             // else, compare both variables - if they are different, test passes 
             else {
                 expect(originFeed).not.toEqual(newFeed);
             }
-            done();
-        })
-    })
+        });
+    });
 }());
