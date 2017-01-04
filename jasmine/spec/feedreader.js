@@ -136,6 +136,7 @@ $(function() {
                 newFeed = $('.feed').children().text();
                 done();
             })
+
         })
         it('loads properly when clicked', function(done){
             // Check to make sure originFeed and newFeed have content
