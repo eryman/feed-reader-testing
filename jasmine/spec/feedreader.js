@@ -91,7 +91,7 @@ $(function() {
             // Triggers a click event, checks to see if class name has been returned
             menuIcon.trigger('click');
             body = $('body');
-            expect(body.hasClass('menu-hidden')).toBe(true);;
+            expect(body.hasClass('menu-hidden')).toBe(true);
         });
     });
     /* TODO: Write a new test suite named "Initial Entries" */
@@ -130,8 +130,6 @@ $(function() {
                 originFeed = $('.feed').children().text();
                 loadFeed(1, function(){
                     newFeed = $('.feed').children().text();
-                    console.log(originFeed);
-                    console.log(newFeed);
                     done();
                 });
             });
